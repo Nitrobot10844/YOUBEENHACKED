@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>YOU'VE BEEN HACKED</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Courier New', monospace;
+      font-size: 3em;
+      text-align: center;
+      animation: flash 0.3s infinite;
+      overflow: hidden;
+    }
+
+    @keyframes flash {
+      0%   { background-color: black; color: red; }
+      50%  { background-color: red; color: black; }
+      100% { background-color: black; color: red; }
+    }
+
+    .glitch {
+      position: relative;
+      display: inline-block;
+      animation: glitch 0.2s infinite;
+    }
+
+    @keyframes glitch {
+      0% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(2px, -2px); }
+      60% { transform: translate(-1px, 1px); }
+      80% { transform: translate(1px, -1px); }
+      100% { transform: translate(0); }
+    }
+
+    .scanline {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 0, 0, 0.05),
+        rgba(255, 0, 0, 0.05) 2px,
+        transparent 2px,
+        transparent 4px
+      );
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .countdown {
+      font-size: 0.5em;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="glitch">YOU'VE BEEN HACKED</div>
+  <div class="countdown">Redirecting in <span id="timer">10</span> seconds...</div>
+  <div class="scanline"></div>
+
+  <audio autoplay>
+    <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav">
+  </audio>
+
+  <script>
+    let seconds = 10;
+    const timer = document.getElementById("timer");
+    const countdown = setInterval(() => {
+      seconds--;
+      timer.textContent = seconds;
+      if (seconds <= 0) {
+        clearInterval(countdown);
+        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"; // Rickroll!
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
