@@ -10,31 +10,31 @@
       font-family: 'Courier New', monospace;
       font-size: 2.5em;
       text-align: center;
-      animation: flash 0.25s infinite;
+      animation: flash 0.2s infinite;
       overflow: hidden;
       color: #ff0033;
     }
 
     @keyframes flash {
       0%   { background-color: black; color: #ff0033; }
-      50%  { background-color: #ff0033; color: black; }
+      50%  { background-color: #330000; color: #00ffcc; }
       100% { background-color: black; color: #ff0033; }
     }
 
     .glitch {
       position: relative;
       display: inline-block;
-      animation: glitch 0.2s infinite;
+      animation: glitch 0.15s infinite;
       z-index: 2;
       text-shadow: 0 0 5px #ff0033, 0 0 10px #ff0033;
     }
 
     @keyframes glitch {
       0% { transform: translate(0); }
-      20% { transform: translate(-2px, 2px); }
-      40% { transform: translate(2px, -2px); }
-      60% { transform: translate(-1px, 1px); }
-      80% { transform: translate(1px, -1px); }
+      20% { transform: translate(-1px, 1px); }
+      40% { transform: translate(1px, -1px); }
+      60% { transform: translate(-1px, 0); }
+      80% { transform: translate(1px, 1px); }
       100% { transform: translate(0); }
     }
 
@@ -68,10 +68,10 @@
       text-align: left;
       margin: 40px auto;
       width: 80%;
-      height: 220px;
+      height: 250px;
       overflow: hidden;
-      background: rgba(0,0,0,0.8);
-      color: lime;
+      background: rgba(0,0,0,0.85);
+      color: #00ff00;
       padding: 10px;
       border: 2px solid #ff0033;
       z-index: 2;
@@ -85,9 +85,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('https://i.imgur.com/7YzZz0T.png') center center no-repeat;
-      background-size: cover;
-      opacity: 0.2;
+      background: radial-gradient(circle, rgba(255,0,0,0.2) 0%, transparent 70%);
       pointer-events: none;
       z-index: 0;
     }
@@ -95,25 +93,29 @@
 </head>
 <body>
   <div class="glitch">YOU'VE BEEN HACKED</div>
-  <div class="countdown">Redirecting in <span id="timer">30</span> seconds...</div>
+  <div class="countdown">Redirecting in <span id="timer">60</span> seconds...</div>
   <div class="terminal" id="terminal"></div>
   <div class="scanline"></div>
   <div class="blood"></div>
 
-  <!-- Ambient horror + glitch sound -->
+  <!-- Layered sound: ambient + glitch + alarm -->
   <audio autoplay loop>
     <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Monplaisir/Monplaisir_2018/Monplaisir_-_Horror_Soundscape.mp3" type="audio/mpeg">
   </audio>
   <audio autoplay loop>
     <source src="https://www.soundjay.com/mechanical/sounds/mechanical-noise-01.mp3" type="audio/mpeg">
   </audio>
+  <audio autoplay loop>
+    <source src="https://www.soundjay.com/button/sounds/beep-10.mp3" type="audio/mpeg">
+  </audio>
 
   <script>
-    let seconds = 30;
+    let seconds = 60;
     const timer = document.getElementById("timer");
     const terminal = document.getElementById("terminal");
+
     const logs = [
-      "[BOOTING eDEX-UI]",
+      "[BOOTING xERxU]",
       "Initializing kernel modules...",
       "Loading payload injector...",
       "Establishing backdoor...",
@@ -124,6 +126,16 @@
       "Uploading virus to target...",
       "Triggering breach protocol...",
       "System override complete.",
+      "[AI SYSTEM ONLINE]",
+      "Analyzing host...",
+      "Injecting chaos...",
+      "[CRYPTO MODULE ENGAGED]",
+      "Connecting to blockchain...",
+      "Transaction ID: 0x" + Math.random().toString(16).substr(2, 16),
+      "Sending 0.42 BTC to anonymous wallet...",
+      "Sending 3.1 ETH to offshore node...",
+      "Transferring 900 USDT to dark pool...",
+      "Transaction confirmed.",
       "Redirecting..."
     ];
 
@@ -133,7 +145,7 @@
         terminal.innerHTML += logs[logIndex] + "<br>";
         logIndex++;
       }
-    }, 2000);
+    }, 500); // Fast typing
 
     const countdown = setInterval(() => {
       seconds--;
