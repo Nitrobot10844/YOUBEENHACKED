@@ -10,15 +10,15 @@
       font-family: 'Courier New', monospace;
       font-size: 2.5em;
       text-align: center;
-      animation: flash 0.3s infinite;
+      animation: flash 0.25s infinite;
       overflow: hidden;
-      color: red;
+      color: #ff0033;
     }
 
     @keyframes flash {
-      0%   { background-color: black; color: red; }
-      50%  { background-color: darkred; color: black; }
-      100% { background-color: black; color: red; }
+      0%   { background-color: black; color: #ff0033; }
+      50%  { background-color: #ff0033; color: black; }
+      100% { background-color: black; color: #ff0033; }
     }
 
     .glitch {
@@ -26,6 +26,7 @@
       display: inline-block;
       animation: glitch 0.2s infinite;
       z-index: 2;
+      text-shadow: 0 0 5px #ff0033, 0 0 10px #ff0033;
     }
 
     @keyframes glitch {
@@ -45,8 +46,8 @@
       height: 100%;
       background: repeating-linear-gradient(
         to bottom,
-        rgba(255, 0, 0, 0.05),
-        rgba(255, 0, 0, 0.05) 2px,
+        rgba(255, 0, 0, 0.1),
+        rgba(255, 0, 0, 0.1) 2px,
         transparent 2px,
         transparent 4px
       );
@@ -59,6 +60,7 @@
       margin-top: 20px;
       z-index: 2;
       position: relative;
+      text-shadow: 0 0 5px red;
     }
 
     .terminal {
@@ -66,14 +68,28 @@
       text-align: left;
       margin: 40px auto;
       width: 80%;
-      height: 200px;
+      height: 220px;
       overflow: hidden;
-      background: rgba(0,0,0,0.7);
+      background: rgba(0,0,0,0.8);
       color: lime;
       padding: 10px;
-      border: 2px solid red;
+      border: 2px solid #ff0033;
       z-index: 2;
       position: relative;
+      box-shadow: 0 0 20px red;
+    }
+
+    .blood {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://i.imgur.com/7YzZz0T.png') center center no-repeat;
+      background-size: cover;
+      opacity: 0.2;
+      pointer-events: none;
+      z-index: 0;
     }
   </style>
 </head>
@@ -82,10 +98,14 @@
   <div class="countdown">Redirecting in <span id="timer">30</span> seconds...</div>
   <div class="terminal" id="terminal"></div>
   <div class="scanline"></div>
+  <div class="blood"></div>
 
-  <!-- Ambient horror sound loop -->
+  <!-- Ambient horror + glitch sound -->
   <audio autoplay loop>
     <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Monplaisir/Monplaisir_2018/Monplaisir_-_Horror_Soundscape.mp3" type="audio/mpeg">
+  </audio>
+  <audio autoplay loop>
+    <source src="https://www.soundjay.com/mechanical/sounds/mechanical-noise-01.mp3" type="audio/mpeg">
   </audio>
 
   <script>
@@ -93,16 +113,18 @@
     const timer = document.getElementById("timer");
     const terminal = document.getElementById("terminal");
     const logs = [
-      "[ACCESS GRANTED]",
-      "Injecting payload...",
-      "Bypassing firewall...",
-      "Downloading credentials...",
-      "Uploading virus...",
+      "[BOOTING eDEX-UI]",
+      "Initializing kernel modules...",
+      "Loading payload injector...",
+      "Establishing backdoor...",
+      "Bypassing biometric firewall...",
+      "Injecting worm...",
+      "Overclocking GPU...",
+      "Decrypting classified files...",
+      "Uploading virus to target...",
       "Triggering breach protocol...",
-      "System override initiated...",
-      "Encrypting core files...",
-      "Launching worm...",
-      "Redirecting target..."
+      "System override complete.",
+      "Redirecting..."
     ];
 
     let logIndex = 0;
